@@ -12,7 +12,8 @@ enum ActiveProfileSyncStore {
     let record: ActiveProfileSyncRecord
 
     if let session, session.endTime == nil,
-      let profile, profile.id == session.blockedProfileId, profile.enableMacSync == true
+      let profile, profile.id == session.blockedProfileId, profile.enableMacSync == true,
+      profile.blockingStrategyId != "IntentionalAccessBlockingStrategy"
     {
       record = ActiveProfileSyncRecord(
         profileId: profile.id,
@@ -61,6 +62,7 @@ enum ActiveProfileSyncStore {
     }
 
     if profile.enableBreaks,
+      profile.blockingStrategyId != "IntentionalAccessBlockingStrategy",
       profile.blockingStrategyId != SoftUnblockSessionLifecycleHandler.nfcStrategyId,
       profile.blockingStrategyId != SoftUnblockSessionLifecycleHandler.qrStrategyId,
       session.breakStartTime != nil && session.breakEndTime == nil
