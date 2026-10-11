@@ -59,6 +59,10 @@ struct SettingsView: View {
 
         AppIconPicker()
 
+        Section("Movement") {
+          NavigationLink("Activity starts (prototype)") { ActivityStartView() }
+        }
+
         Section("Help") {
           HStack {
             Text("Debug Mode")
